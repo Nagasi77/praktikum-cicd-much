@@ -1,0 +1,15 @@
+name: CI Pipeline
+on: [push]
+jobs:
+test-logic:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3
+- run: npm install
+- run: npm test
+build-image:
+needs: test-logic
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3
+- run: docker build -t app-image .
